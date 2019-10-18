@@ -1,0 +1,50 @@
+---
+title: "EPA Cars"
+author: "Nathan Moore"
+date: "18/10/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+big_epa_cars <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-15/big_epa_cars.csv")
+```
+
+## Cars
+
+Why have I not done Tidy Tuesday before? I don't know. 
+
+Dtaa dictionary: https://www.fueleconomy.gov/feg/ws/index.shtml#fuelType1
+
+
+```{r cars}
+# summary of course
+summary(big_epa_cars)
+
+big_epa_cars %>% 
+  count(cityA08)
+
+big_epa_cars %>% 
+  count(lv2)
+
+```
+```{r traditional}
+
+ggplot(big_epa_cars, aes(x = displ, y = highway08, colour = factor(cylinders))) + 
+  geom_point()
+
+```
+
+```{r city_highway}
+
+ggplot(big_epa_cars, aes(x = city08, y = highway08, alpha = 0.05)) + 
+  geom_point() + 
+  xlim(c(0,50)) + 
+  ylim(c(0,50)) + 
+  geom_jitter() + 
+  geom_abline(slope = 1, intercept = 0)
+
+```
+
