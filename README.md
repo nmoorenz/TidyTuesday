@@ -1,2 +1,2 @@
 # TidyTuesday
-contributions and elocutions for #TidyTuesday
+Contributions and elocutions for #TidyTuesday
