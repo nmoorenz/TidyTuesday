@@ -35,7 +35,9 @@ horror_df <- horror_movies %>%
          budget_num = parse_number(budget), 
          movie_run_min = parse_number(movie_run_time), 
          genre_list = str_split(genres, "\\|"), 
-         genre_count = lengths(genre_list))
+         genre_count = lengths(genre_list), 
+         cast_list = str_split(cast, "\\|"), 
+         cast_count = lengths(cast_list))
 
 # plot for ratings
 ggplot(horror_df, aes(release_date, review_rating)) + 
@@ -79,3 +81,16 @@ horror_df %>%
   ggplot(aes(budget_num, review_rating)) + 
   geom_point() + 
   scale_x_log10(breaks = c(100, 1000, 10000, 100000, 10^6,   10^9), labels = scales::comma)
+
+# cast count
+horror_df %>% 
+  count(cast_count)
+
+horror_df %>% 
+  ggplot(aes(as.factor(cast_count), review_rating)) + 
+  geom_boxplot()
+
+# review rating
+horror_df %>% 
+  arrange(desc(review_rating)) %>% 
+  select(title, release_year, release_country, review_rating, budget_num, movie_run_min)
